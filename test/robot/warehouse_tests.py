@@ -121,10 +121,17 @@ class CrateTests(unittest.TestCase):
         location = Location(1,1)
         crate_at_location_before = self.warehouse.check_crate_at_location(location)
         self.assertFalse(crate_at_location_before)
-        self.warehouse.(location)
+
+        self.warehouse.robot.process_direction(RobotDirection.GRAB)
+
+        self.assertTrue(self.warehouse.robot.has_crate)
+        self.assertFalse(self.warehouse.check_crate_at_location(location))
+
+        self.warehouse.robot.process_direction(RobotDirection.DROP)
         self.assertTrue(self.warehouse.check_crate_at_location(location))
 
     def test_drop_crate_at_location_with_crate_does_nothing(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()
